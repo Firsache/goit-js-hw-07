@@ -27,21 +27,32 @@ renderImageMarkUp(galleryItems);
 
 galleryEl.addEventListener('click', onGalleryItemClickModalOpen);
 
+let instance = basicLightbox.create(`
+        <img src="" alt="" width="800">
+    `);
 
 function onGalleryItemClickModalOpen(evt) {
     evt.preventDefault();
-    let originalImg = evt.target.dataset.source;
-    let description = evt.target.alt;
-    console.log(description);
+    
+    instance.src = evt.target.dataset.source;
+    console.log(instance.src);
+    
+    instance.alt = evt.target.alt;
+    console.log(instance.alt);
+    console.log(instance);
+    instance.show()
 
-    const instance = basicLightbox.create(`
-        <img src="${originalImg}" alt="${description}" width="800">
-    `).show()
-
-    document.addEventListener('keydown', evt => {
-        if (evt.code === 'Escape') {
-        instance.close()
-    }
-    });
+    document.addEventListener('keydown', onEscKeyBtnPress);
 }
 
+function onEscKeyBtnPress(evt) {
+    if (evt.code === 'Escape') {
+        closeModal()
+    }
+    
+}
+
+function closeModal() {
+    instance.close()
+    document.removeEventListener('keydown', onEscKeyBtnPress);
+}
