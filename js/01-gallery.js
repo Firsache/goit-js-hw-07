@@ -35,11 +35,12 @@ function onGalleryItemClickModalOpen(evt) {
     evt.preventDefault();
     
     instance.src = evt.target.dataset.source;
-    console.log(instance.src);
+    // console.log(instance.src);
     
     instance.alt = evt.target.alt;
-    console.log(instance.alt);
-    console.log(instance);
+    // console.log(instance.alt);
+    // console.log(instance);
+
     instance.show()
 
     document.addEventListener('keydown', onEscKeyBtnPress);
