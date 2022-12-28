@@ -8,7 +8,7 @@ function createImageMarkUp(items) {
         .map(({ preview, original, description }) => {
         return `
             <div class="gallery__item">
-            <a class="gallery__link" href="large-image.jpg">
+            <a class="gallery__link" href="${original}">
                 <img
                 loading="lazy"
                 class="gallery__image lazyload"
@@ -28,9 +28,7 @@ renderImageMarkUp(galleryItems);
 
 galleryEl.addEventListener('click', onGalleryItemClickModalOpen);
 
-let instance = basicLightbox.create(`
-        <img src="" alt="" width="800">
-    `);
+let instance;
 
 function onGalleryItemClickModalOpen(evt) {
     evt.preventDefault();
@@ -38,13 +36,13 @@ function onGalleryItemClickModalOpen(evt) {
     if (evt.target.nodeName !== 'IMG') {
         return;
     }
-    instance.src = evt.target.dataset.source;
-    // console.log(instance.src);
-    
-    instance.alt = evt.target.alt;
-    // console.log(instance.alt);
-    // console.log(instance);
+    instance = basicLightbox.create(`
+        <img src="${evt.target.dataset.source}" alt="${evt.target.alt}" width="800">
+    `);
 
+    // instance.src = evt.target.dataset.source;
+    // instance.alt = evt.target.alt;
+    
     instance.show()
 
     document.addEventListener('keydown', onEscKeyBtnPress);
